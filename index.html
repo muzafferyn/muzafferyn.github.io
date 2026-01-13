@@ -514,7 +514,7 @@
         function isWebGLSupported() {
             try {
                 var testCanvas = document.createElement('canvas');
-                return !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')));
+                return !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-web-gl')));
             } catch (e) {
                 return false;
             }
@@ -1023,8 +1023,8 @@ window.onfocus = function () { document.title = title; };
     font-size: 16px !important;
     overflow: auto !important;
     height: auto !important;
-    background: #fff !important;
-    color: #222 !important;
+    background: #111 !important;
+    color: #fff !important;
   }
   .center {
     position: relative !important;
@@ -1039,11 +1039,11 @@ window.onfocus = function () { document.title = title; };
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    background: #fff !important;
-    color: #222 !important;
+    background: #111 !important;
+    color: #fff !important;
   }
   #rabia, #rabis, #clockDisplay, #pp, #text1, #text2 {
-    color: #222 !important;
+    color: #fff !important;
     text-shadow: none !important;
     filter: none !important;
     opacity: 1 !important;
