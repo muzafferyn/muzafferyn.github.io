@@ -13,9 +13,9 @@
 <meta name="revisit-after" content="2 days">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="muzafferyn">
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 
-    <!--♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥ 
+
+    <!--♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥ 
        Web Site & API & Sunucu & Development
 
                   işleriniz %100 Güvenle yapılır.
@@ -227,12 +227,14 @@
        
     </style>
 </head>
-<body oncontextmenu="return false;" unselectable="on" onselectstart="return false;"><canvas width="1920" height="945"></canvas>
+<body oncontextmenu="return false;" unselectable="on" onselectstart="return false;">
+<canvas id="maincanvas" width="1920" height="945" style="display:block;"></canvas>
+<div id="ios-warning" style="display:none;color:#fff;background:#c00;padding:20px;text-align:center;z-index:9999;position:fixed;top:0;left:0;width:100%;font-size:18px;">Cihazınızda bu sayfa tam olarak desteklenmiyor. Lütfen farklı bir tarayıcı veya cihaz deneyin.</div>
 <audio id="audio" preload="auto" loop="">
 <source type="audio/mp4" src="">
 </audio>
 
-<div class="center">
+<div class="center" style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);width:auto;max-width:100vw;min-height:auto;display:block;">
 <center>
 <div class="durum" style="display: none;"></div>
 <p id="rabis" display="none"></p>
@@ -243,7 +245,7 @@
 <div class="animated fadeInUp">
 <pre><pre align="middle" style="font-size: 39px; !important">&nbsp;&nbsp; </pre></pre><!--<button type="button" style="width:220px;" class="btn btn-light btn-lg" onclick="window.location.href = 'https://vip.localhost';">&nbsp;VIP</button>--><br><br>
 <center>
-		<a href="https://instagram.com/relaxafk" target="_blank"><img src="https://i.pinimg.com/originals/c8/24/03/c82403948384deec6c7fcf15f8c6d99d.gif" width="" height="" alt="Kartvizit">
+		<a href="https://instagram.com/relaxafk" target="_blank"><img src="https://i.pinimg.com/originals/c8/24/03/c82403948384deec6c7fcf15f8c6d99d.gif" width="270" height="250 alt="Kartvizit">
 	</a>
 <br<br><br><br<br><br><br<br><br>
 <div id="clockDisplay" class="clockStyle">10:32:20 PM</div>
@@ -503,7 +505,24 @@
 <script>
         'use strict';
 
-        var canvas = document.getElementsByTagName('canvas')[0];
+        var canvas = document.getElementById('maincanvas');
+
+        // iOS ve WebGL desteği kontrolü
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+        function isWebGLSupported() {
+            try {
+                var testCanvas = document.createElement('canvas');
+                return !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')));
+            } catch (e) {
+                return false;
+            }
+        }
+        if (isIOS() && !isWebGLSupported()) {
+            document.getElementById('ios-warning').style.display = 'block';
+            canvas.style.display = 'none';
+        }
 
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -999,5 +1018,28 @@ window.onblur = function () { document.title = alttitle; };
 window.onfocus = function () { document.title = title; };
 </script>
 <style>
-
+@media (max-width: 600px) {
+  body, html {
+    font-size: 16px !important;
+    overflow: auto !important;
+    height: auto !important;
+  }
+  .center {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100vw !important;
+    min-height: 100vh !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  canvas {
+    display: none !important;
+  }
+}
 </style></center></div></body></html>
