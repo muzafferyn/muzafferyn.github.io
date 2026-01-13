@@ -428,13 +428,23 @@
                                              function setMorph(fraction) {
                                                  // Orijinal animasyon mantığı korunur, blur azaltılır
                                                  const maxBlur = 0.5; // En az bulanıklık
-                                                 elts.text2.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur,2)}px)`;
-                                                 elts.text2.style.opacity = `${Math.pow(fraction, 0.2)}`;
-
-                                                 fraction = 1 - fraction;
-                                                 elts.text1.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur, 2)}px)`;
-                                                 elts.text1.style.opacity = `${Math.pow(fraction, 0.2)}`;
-
+                                                 if(window.innerWidth <= 600) {
+                                                    // Mobilde animasyon için class ekle
+                                                    elts.text2.classList.add('morph-anim');
+                                                    elts.text1.classList.add('morph-anim');
+                                                    elts.text2.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur,2)}px)`;
+                                                    elts.text2.style.opacity = `${Math.pow(fraction, 0.2)}`;
+                                                    fraction = 1 - fraction;
+                                                    elts.text1.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur, 2)}px)`;
+                                                    elts.text1.style.opacity = `${Math.pow(fraction, 0.2)}`;
+                                                 } else {
+                                                    // PC'de eski haliyle devam
+                                                    elts.text2.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur,2)}px)`;
+                                                    elts.text2.style.opacity = `${Math.pow(fraction, 0.2)}`;
+                                                    fraction = 1 - fraction;
+                                                    elts.text1.style.filter = `blur(${Math.min(maxBlur / fraction - maxBlur, 2)}px)`;
+                                                    elts.text1.style.opacity = `${Math.pow(fraction, 0.2)}`;
+                                                 }
                                                  elts.text1.textContent = texts[textIndex % texts.length];
                                                  elts.text2.textContent = texts[(textIndex + 1) % texts.length];
                                              }
@@ -1049,6 +1059,10 @@ window.onfocus = function () { document.title = title; };
     opacity: 1 !important;
     font-size: 1.2rem !important;
     display: block !important;
+  }
+  .morph-anim {
+    transition: filter 0.4s, opacity 0.4s;
+    will-change: filter, opacity;
   }
   canvas {
     display: none !important;
